@@ -10,7 +10,6 @@ Created by Rezondes
 
 # Beschreibung
 Dieses Repository stellt eine alt:V-Ressource bereit, um die Sirenen der Notfallfahrzeuge beim angeschalteten Blaulicht auszuschalten.
-Diese Ressource stellt Ereignisse zum Erstellen, Entfernen und Bearbeiten von Zeitleisten bereit.
 
 ## Installation
 
