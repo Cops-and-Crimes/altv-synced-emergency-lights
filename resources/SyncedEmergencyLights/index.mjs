@@ -1,12 +1,12 @@
 import * as alt from 'alt';
 
-alt.onClient('Server:SyncedEmergencyLights:SilentMode', (player, vehicle, state) => {
-    if (state){
-        vehicle.setSyncedMeta("silentMode", true);
+alt.onClient('Server:SyncedEmergencyLights:Toggle', (player, vehicle) => {
+    if (!vehicle) return;
+
+    if (!vehicle.hasStreamSyncedMeta("silentMode")){
+        vehicle.setStreamSyncedMeta("silentMode", true);
+        return;
     }
-    else {
-        vehicle.deleteSyncedMeta("silentMode");
-    }
-    
-    alt.emitAllClients("Client:SyncedEmergencyLights:SetSilentMode", vehicle, state);
+
+    vehicle.deleteStreamSyncedMeta("silentMode");
 });

@@ -3,21 +3,13 @@ import * as native from 'natives';
 
 const toggleKey = 81; // Q | https://www.toptal.com/developers/keycode
 
+const player = alt.Player.local;
+
 alt.on('keydown', (key) => {
     if (key != toggleKey) return;
-    if (!alt.Player.local.vehicle) return;
+    if (!player.vehicle) return;
 
-    if(alt.Player.local.vehicle.hasSyncedMeta("silentMode")) 
-    {
-        alt.emitServer("Server:SyncedEmergencyLights:SilentMode", alt.Player.local.vehicle, false);
-        return;
-    }
-
-    alt.emitServer("Server:SyncedEmergencyLights:SilentMode", alt.Player.local.vehicle, true);
-})
-
-alt.onServer("Client:SyncedEmergencyLights:SetSilentMode", (vehicle, state) => {
-    native.setVehicleHasMutedSirens(vehicle.scriptID, state);
+    alt.emitServer("Server:SyncedEmergencyLights:Toggle", player.vehicle);
 })
 
 alt.everyTick(() => {
@@ -26,11 +18,17 @@ alt.everyTick(() => {
     native.disableControlAction(2, 85, true); // disable VehicleRadioWheel
 })
 
-alt.on("gameEntityCreate", (entity) => {
-    if (entity instanceof alt.Vehicle) 
-    {
-        if (!entity.hasSyncedMeta("silentMode")) return;
+function Sync(entity){
+    if (!entity instanceof alt.Vehicle) return;
 
-        native.setVehicleHasMutedSirens(entity.scriptID, true);
-    }
+    if (!entity.hasStreamSyncedMeta("silentMode")) return;
+
+    native.setVehicleHasMutedSirens(entity, true);
+}
+
+alt.on("gameEntityCreate", (entity) => {
+    Sync(entity);
+});
+alt.on("streamSyncedMetaChange", (entity, key, newValue, oldValue) => {
+    Sync(entity);
 });
