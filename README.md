@@ -12,7 +12,6 @@ Created by Rezondes
 Dieses Repository stellt eine alt:V-Ressource bereit, um die Sirenen der Notfallfahrzeuge beim angeschalteten Blaulicht auszuschalten.
 
 ## Installation
-
 Fügen Sie einfach den Ordner `SyncedEmergencyLights` in ihren Serverordner `resources` und den Namen dieser Ressource zu Ihrer `server.toml` hinzu.
 
 ```
