@@ -1,0 +1,2 @@
+# altv-synced-emergency-lights
+ 
