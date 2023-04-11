@@ -21,7 +21,11 @@ alt.everyTick(() => {
 function Sync(entity){
     if (!entity instanceof alt.Vehicle) return;
 
-    if (!entity.hasStreamSyncedMeta("silentMode")) return;
+    if (!entity.hasStreamSyncedMeta("silentMode")) 
+    {
+        native.setVehicleHasMutedSirens(entity, false);
+        return;
+    }
 
     native.setVehicleHasMutedSirens(entity, true);
 }
